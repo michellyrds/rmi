@@ -13,7 +13,8 @@ public class PartClient{
         };
 
         try {
-            Part obj = (Part)Naming.lookup("localhost"); //nomedamaquina que fica no etc/hosts (ubuntu)
+            //rmi://localhost/PartServer acho q deve ser isso. 
+            Part obj = (Part)Naming.lookup("rmi://localhost/PartServer"); //nomedamaquina que fica no etc/hosts (ubuntu)
             //System.out.println(hv.verify(obj, )); //erro: precisamos configurar a ssl session
             System.out.println(obj.sayHello());
         } catch(Exception e) {
