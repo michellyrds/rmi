@@ -9,7 +9,7 @@ Java version:
 
 
 Por: 
-Alexandre Kenji
+Alexandre Kenji Okamoto
 Guilherme Sena
 Lia Yumi
 Michelly Rodrigues da Silva

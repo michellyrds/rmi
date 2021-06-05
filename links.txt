@@ -1,0 +1,19 @@
+LINKS UTEIS
+
+https://www.cs.swarthmore.edu/~newhall/unixhelp/javamakefiles.html
+https://www.devmedia.com.br/uma-introducao-ao-rmi-em-java/28681
+http://www.professordiovani.com.br/sd/exemplo_JavaRMI.htm
+http://www.inf.ufsc.br/~frank.siqueira/INE6514/RMI/
+
+Module java.rmi: 
+https://docs.oracle.com/en/java/javase/14/docs/api/java.rmi/module-summary.html
+
+Naming.lookup()
+https://web.fe.up.pt/~eol/AIAD/aulas/JINIdocs/rmi1.html
+rmi://<Servidor onde Corre o Serviço de Registos>[:<porta de rede (opcional)>]/<nome do serviço remoto>
+
+How to Fix java.net.ConnectException: Connection refused: connect in Java
+https://javarevisited.blogspot.com/2013/02/java-net-ConnectException-Connection-refused.html
+
+Socket de rede:
+https://pt.wikipedia.org/wiki/Soquete_de_rede
