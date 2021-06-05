@@ -14,6 +14,7 @@ public class PartClient{
 
         try {
             Part obj = (Part)Naming.lookup("localhost"); //nomedamaquina que fica no etc/hosts (ubuntu)
+            //System.out.println(hv.verify(obj, )); //erro: precisamos configurar a ssl session
             System.out.println(obj.sayHello());
         } catch(Exception e) {
             System.out.println("PartClient error"+ e.getMessage());

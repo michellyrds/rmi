@@ -13,5 +13,3 @@ public class PartImpl extends UnicastRemoteObject implements Part {
         return "HelloWorld!";
     }
 }
-
- 

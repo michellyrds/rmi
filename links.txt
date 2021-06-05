@@ -11,9 +11,12 @@ https://docs.oracle.com/en/java/javase/14/docs/api/java.rmi/module-summary.html
 Naming.lookup()
 https://web.fe.up.pt/~eol/AIAD/aulas/JINIdocs/rmi1.html
 rmi://<Servidor onde Corre o Serviço de Registos>[:<porta de rede (opcional)>]/<nome do serviço remoto>
+https://www.dca.fee.unicamp.br/cursos/PooJava/objdist/rmijrreg.html
+    https://www.dca.fee.unicamp.br/cursos/PooJava/objdist/CountServer.java.html
 
 How to Fix java.net.ConnectException: Connection refused: connect in Java
 https://javarevisited.blogspot.com/2013/02/java-net-ConnectException-Connection-refused.html
+https://www.geeksforgeeks.org/how-to-fix-java-net-connectexception-connection-refused-connect-in-java/
 
 Socket de rede:
 https://pt.wikipedia.org/wiki/Soquete_de_rede
