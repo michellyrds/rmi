@@ -12,8 +12,23 @@ CLASSES = \
 		PartRepository.java \
 		PartRepositoryImpl.java \
 		PartServer.java
+
+MAIN = \
+	Main.java
+
+SERVER = \
+	PartServer.java
+
+CLIENT = \
+	PartClient.java
 	
 default: CLASSES
+
+main: $(MAIN:.java=.class)
+
+server: $(SERVER:.java=.class)
+
+client: $(CLIENT:.java=.class)
 
 classes: $(CLASSES:.java=.class)
 
