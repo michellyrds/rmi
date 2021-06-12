@@ -5,7 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class PartServer {
     public static final String host = "localhost";
-    public static final int port = 39819;
+    public static final int port = 1099;
 
 
     public static void main (String args[]) {
@@ -45,7 +45,7 @@ public class PartServer {
 
         try {
             PartImpl obj = new PartImpl();
-            Registry registry = LocateRegistry.getRegistry(host, port);
+            Registry registry = LocateRegistry.createRegistry(port); // subindo um server na porta passada como parametro
             registry.rebind("PartServer", obj); //precisamos arrumar o bind
             System.out.println("Part Server pronto.");
         } catch(Exception e) {

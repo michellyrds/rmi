@@ -13,7 +13,7 @@ public class PartClient{
             System.out.println("PartClient: " + obj.sayHello());
         } catch(Exception e) {
             System.out.println("PartClient error "+ e.getMessage());
-            System.exit(0);
         }
+        System.exit(0);
     }
 }
