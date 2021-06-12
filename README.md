@@ -1,4 +1,4 @@
-# JavaRemote Method Invocation (RMI)
+# Java Remote Method Invocation (RMI)
 
 Implementação de um sistema de informações distribuído sobre peças ou componentes (parts) usando Remote Method Invocation (RMI) de Java.
 
