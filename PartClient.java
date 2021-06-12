@@ -1,25 +1,19 @@
-import java.net.*;
-import java.rmi.*;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 public class PartClient{
+    public static final String host = "localhost";
     public static void main(String args[]){
-        HostnameVerifier hv = new HostnameVerifier(){
-            public boolean verify(String hostname, SSLSession session){
-                return true;
-            }
-        };
 
         try {
-            //rmi://localhost/PartServer acho q deve ser isso. 
-            Part obj = (Part)Naming.lookup("rmi://localhost/PartServer"); //nomedamaquina que fica no etc/hosts (ubuntu)
+            //Part obj = (Part)Naming.lookup("rmi://localhost/PartServer"); //nomedamaquina que fica no etc/hosts (ubuntu)
             //System.out.println(hv.verify(obj, )); //erro: precisamos configurar a ssl session
-            System.out.println(obj.sayHello());
+            Registry registry = LocateRegistry.getRegistry(host);
+            Part obj = (Part) registry.lookup("PartServer");
+            System.out.println("PartClient: " + obj.sayHello());
         } catch(Exception e) {
-            System.out.println("PartClient error"+ e.getMessage());
+            System.out.println("PartClient error "+ e.getMessage());
+            System.exit(0);
         }
-        System.exit(0);
     }
 }

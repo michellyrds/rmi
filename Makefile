@@ -22,7 +22,7 @@ SERVER = \
 CLIENT = \
 	PartClient.java
 	
-default: CLASSES
+default: $(CLASSES:.java=.class)
 
 main: $(MAIN:.java=.class)
 

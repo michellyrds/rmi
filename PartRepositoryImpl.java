@@ -1,7 +1,5 @@
-import java.rmi.*;
-import java.rmi.server.*;
-import java.rmi.registry.*;
-import java.net.*;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepository {
     

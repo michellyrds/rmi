@@ -1,7 +1,13 @@
-import java.net.*;
-import java.rmi.*;
+import java.rmi.registry.Registry;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 public class PartServer {
+    public static final String host = "localhost";
+    public static final int port = 39819;
+
+
     public static void main (String args[]) {
         //Cria e instala o security manager
     //System.setSecurityManager(new RMISecurityManager() );
@@ -38,12 +44,12 @@ public class PartServer {
 //----------------------------------------------------------------------
 
         try {
-            //Cria HelloImpl
             PartImpl obj = new PartImpl();
-            Naming.rebind("PartServer", obj);
+            Registry registry = LocateRegistry.getRegistry(host, port);
+            registry.rebind("PartServer", obj); //precisamos arrumar o bind
             System.out.println("Part Server pronto.");
         } catch(Exception e) {
-            System.out.println("PartServer erro"+ e.getMessage());
+            System.out.println("PartServer erro "+ e.getMessage());
             System.exit(0);
         }
     }
