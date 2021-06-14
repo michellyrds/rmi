@@ -11,7 +11,7 @@ public class PartServer {
     //System.setSecurityManager(new RMISecurityManager() );
 
         try {
-            PartImpl obj = new PartImpl();
+            PartImpl obj = new PartImpl(1, "teste", "esse é um teste", null, "Olá");
             Registry registry = LocateRegistry.createRegistry(port); // subindo um server na porta passada como parametro
             registry.rebind("PartServer", obj); //precisamos arrumar o bind
             System.out.println("Part Server pronto.");

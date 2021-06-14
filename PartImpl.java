@@ -7,9 +7,9 @@ public class PartImpl extends UnicastRemoteObject implements Part {
     public String nome;
     public String descricao;
     public List<Part> subParts;
-    public PartRepository partRepository;
+    public String partRepository;
     
-    public PartImpl(int id, String nome, String descricao, List<Part> subParts, PartRepository partRepository) throws RemoteException{
+    public PartImpl(int id, String nome, String descricao, List<Part> subParts, String partRepository) throws RemoteException{
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -29,7 +29,7 @@ public class PartImpl extends UnicastRemoteObject implements Part {
         return descricao;
     }
 
-    public PartRepository getPartRepository(){
+    public String getPartRepository(){
         return partRepository;
     }
 
