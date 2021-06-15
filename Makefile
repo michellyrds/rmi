@@ -14,7 +14,7 @@ CLASSES = \
 		PartServer.java
 
 MAIN = \
-	Main.java
+	Manager.java
 
 SERVER = \
 	PartServer.java

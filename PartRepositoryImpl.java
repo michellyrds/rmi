@@ -1,3 +1,4 @@
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -38,7 +39,7 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
 
     @Override
     public PartImpl createPart(int id, String nome, String descricao, List<Part> subParts, String partRepository) throws RemoteException {
-        PartImpl newPart = new PartImpl(id, nome, descricao, subParts, partRepository);
+        PartImpl newPart = new PartImpl(nome, descricao, subParts, partRepository);
         return newPart;
     }
 }

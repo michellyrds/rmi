@@ -3,14 +3,16 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 public class PartImpl extends UnicastRemoteObject implements Part {
+    public static int idCount = 0;
+    
     public int id;
     public String nome;
     public String descricao;
     public List<Part> subParts;
     public String partRepository;
     
-    public PartImpl(int id, String nome, String descricao, List<Part> subParts, String partRepository) throws RemoteException{
-        this.id = id;
+    public PartImpl(String nome, String descricao, List<Part> subParts, String partRepository) throws RemoteException{
+        this.id = ++PartImpl.idCount;
         this.nome = nome;
         this.descricao = descricao;
         this.subParts = subParts;
