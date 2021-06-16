@@ -32,10 +32,15 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
                 return parts.get(i);
             }
         }
-        System.out.println("part não encontrada");
+        System.out.println("Part não encontrada");
         return null;
     }
 
+    public void addPart(Part part, List<Part> subParts) throws RemoteException{
+        part.addSubParts(subParts);
+        parts.add(part);
+    }
+    
     @Override
     public PartImpl createPart(int id, String nome, String descricao, List<Part> subParts, String partRepository) throws RemoteException {
         PartImpl newPart = new PartImpl(id, nome, descricao, subParts, partRepository);
