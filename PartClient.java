@@ -1,6 +1,6 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.RemoteException;
+//import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,23 +14,23 @@ public class PartClient{
     static Part part;
     static PartRepository obj;
     static List<Part> subParts = new ArrayList<Part>();
-    
 
-    public static void main(String args[]){
+    public void run(){
         Map<String, Integer> serverPortas = new HashMap<String, Integer>();
-        serverPortas.put("repositorio do ale", 1099);
-        serverPortas.put("repositorio da mi", 53903);
-        serverPortas.put("repositorio do gui", 53907);
-        serverPortas.put("repositorio da yumi", 53906);
+        serverPortas.put("server do ale", 1099);
+        serverPortas.put("server da mi", 53903);
+        serverPortas.put("server do gui", 53907);
+        serverPortas.put("server da yumi", 53906);
         
         try {
             //Part obj = (Part)Naming.lookup("rmi://localhost/PartServer"); //nomedamaquina que fica no etc/hosts (ubuntu)
             //System.out.println(hv.verify(obj, )); //erro: precisamos configurar a ssl session
             Registry registry = LocateRegistry.getRegistry(host);
-            PartRepository obj = (PartRepository) registry.lookup("PartServer");
-            System.out.println("PartServer: " + obj.getNome());
+            PartRepository obj = (PartRepository) registry.lookup("server do ale");
+            System.out.println("repositorio do ale: " + obj.getNome());
 
             Scanner sc = new Scanner(System.in);
+
             while (true) {
                 System.out.println("Digite um comando do sistema:");
                 String comando = sc.nextLine(); 
@@ -41,11 +41,12 @@ public class PartClient{
                     }
                     
                     else if (comando.equals("bind")) {
-                        System.out.println("Digite a porta do repositório que deseja entrar:");
+                        System.out.println("Digite o nome do servidor que deseja conectar:");
                         String nome = sc.nextLine();
                         int porta = serverPortas.get(nome);
                         registry = LocateRegistry.getRegistry(porta);
-                        obj = (PartRepository) registry.lookup("PartServer");
+                        obj = (PartRepository) registry.lookup(nome);
+                        System.out.println(obj.getNome() + " conectado");
                     }
 
                     else if (comando.equals("listp")) {
@@ -99,16 +100,16 @@ public class PartClient{
                         System.out.println("addsubpart - Adiciona à lista de sub-peças corrente n unidades da peça corrente.");
                         System.out.println("addp - Adiciona uma peça ao repositório corrente.");
                         System.out.println("quit - Encerra a execução do cliente.");
-                        System.out.println("\nLista de repositórios:");
-                        System.out.println("Repositório do ale - 5306");
-                        System.out.println("Repositório da mi - 53903");
-                        System.out.println("Repositório do gui - 53904");
-                        System.out.println("Repositório da yumi - 53905");
+                        System.out.println("\nLista de servidores:");
+                        System.out.println("Server do ale");
+                        System.out.println("Server da mi");
+                        System.out.println("Server do gui");
+                        System.out.println("Server da yumi");
                     }
 
                     else if (comando.equals("quit")) {
-                        System.out.println("Saindo do progrma.");
-;                       System.exit(0);
+                        System.out.println("Saindo do programa...");
+                        System.exit(0);
                     }
                     
                     else { 
