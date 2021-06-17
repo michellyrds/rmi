@@ -41,6 +41,14 @@ public class PartClient{
                     else if (comando.equals("listp")) {
                         obj.listar();
                     } 
+
+                    else if (comando.equals("createp")) {
+                        System.out.println("Digite o id da peça que deseja criar:");
+                        String nome = sc.nextString();
+                        System.out.println("Digite a descrição da peça que deseja criar:"); 
+                        String descricao = sc.nextString();
+                        part = obj.createPart(nome, descricao);
+                    } 
                     
                     else if (comando.equals("getp")) {
                         System.out.println("Digite o id da peça que deseja buscar:");
@@ -53,7 +61,7 @@ public class PartClient{
                         System.out.println("Voce agora esta com a part " + part.getNome());    
                         System.out.println("ID:" + part.getId());
                         System.out.println("Descricao: " + part.getDescricao());
-                        System.out.println("Ela esta no repositorio " + part.getPartRepository());
+                        System.out.println("Repositório: " + part.getPartRepository());
                         System.out.println("Eh primitiva: " + part.ehPrimitiva());
                         System.out.println("Tamanho: " + part.tamanho());
                     } 
