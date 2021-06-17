@@ -2,8 +2,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.RemoteException;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class PartClient{
     public static final String host = "localhost";
@@ -11,9 +14,14 @@ public class PartClient{
     static Part part;
     static PartRepository obj;
     static List<Part> subParts = new ArrayList<Part>();
+    
 
     public static void main(String args[]){
-    
+        Map<String, Integer> serverPortas = new HashMap<String, Integer>();
+        serverPortas.put("repositorio do ale", 1099);
+        serverPortas.put("repositorio da mi", 53903);
+        serverPortas.put("repositorio do gui", 53907);
+        serverPortas.put("repositorio da yumi", 53906);
         
         try {
             //Part obj = (Part)Naming.lookup("rmi://localhost/PartServer"); //nomedamaquina que fica no etc/hosts (ubuntu)
@@ -33,8 +41,10 @@ public class PartClient{
                     }
                     
                     else if (comando.equals("bind")) {
-                        System.out.println("Digite qual repositório deseja entrar:");
-                        registry = LocateRegistry.getRegistry(sc.nextLine());
+                        System.out.println("Digite a porta do repositório que deseja entrar:");
+                        String nome = sc.nextLine();
+                        int porta = serverPortas.get(nome);
+                        registry = LocateRegistry.getRegistry(porta);
                         obj = (PartRepository) registry.lookup("PartServer");
                     }
 
@@ -44,10 +54,10 @@ public class PartClient{
 
                     else if (comando.equals("createp")) {
                         System.out.println("Digite o id da peça que deseja criar:");
-                        String nome = sc.nextString();
+                        String nome = sc.nextLine();
                         System.out.println("Digite a descrição da peça que deseja criar:"); 
-                        String descricao = sc.nextString();
-                        part = obj.createPart(nome, descricao);
+                        String descricao = sc.nextLine();
+                        //part = obj.createPart(nome, descricao);
                     } 
                     
                     else if (comando.equals("getp")) {
@@ -89,6 +99,11 @@ public class PartClient{
                         System.out.println("addsubpart - Adiciona à lista de sub-peças corrente n unidades da peça corrente.");
                         System.out.println("addp - Adiciona uma peça ao repositório corrente.");
                         System.out.println("quit - Encerra a execução do cliente.");
+                        System.out.println("\nLista de repositórios:");
+                        System.out.println("Repositório do ale - 5306");
+                        System.out.println("Repositório da mi - 53903");
+                        System.out.println("Repositório do gui - 53904");
+                        System.out.println("Repositório da yumi - 53905");
                     }
 
                     else if (comando.equals("quit")) {

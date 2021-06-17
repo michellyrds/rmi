@@ -1,14 +1,14 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepository {
     public String nome;
-    public List<Part> parts;
+    public List<Part> parts = new ArrayList<Part>();
 
 
-    public PartRepositoryImpl(String nome, List<Part> parts) throws RemoteException{
-        this.parts = parts;
+    public PartRepositoryImpl(String nome) throws RemoteException{
         this.nome = nome;
     }
 
