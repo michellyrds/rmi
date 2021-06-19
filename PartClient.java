@@ -1,5 +1,6 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.HashMap;
@@ -9,11 +10,22 @@ import java.util.List;
 
 
 public class PartClient{
-    public static final String host = "localhost";
+    private String host = "localhost"; //host default
 
     private Part part;
     private List<Part> subParts = new ArrayList<Part>();
     static PartRepository repositorioCorrente;
+    private Map<String, Integer> servers;
+    Registry registry;
+
+    public PartClient() throws RemoteException{
+        this.registry = LocateRegistry.getRegistry(host);
+    } //construtor default
+
+    public PartClient(String host) throws RemoteException{ //especifica o host do client
+        this.host = host;
+        this.registry = LocateRegistry.getRegistry(host);
+    }
 
     public String searchServer(String repositoryName){
         if (repositoryName.equals("repoAle")){
@@ -28,8 +40,20 @@ public class PartClient{
             return "Este servidor não existe";
         }
     }
+    
+    public void bind(String repositoryName) throws RemoteException, NotBoundException{
+        try{
+            String serverName = searchServer(repositoryName);
+            int port = servers.get(serverName);
+            registry = LocateRegistry.getRegistry(port);
+            repositorioCorrente = (PartRepository) registry.lookup(serverName);
+            System.out.println("Conectado ao " + repositorioCorrente.getNome() + " no servidor " + serverName);
+        } catch(Exception e){
+            System.out.println("Conexão ao repositório "+ repositoryName + " falhou.");
+        }
+    }
 
-    public void run(){
+    public void run() throws RemoteException{
         Map<String, Integer> serverPortas = new HashMap<String, Integer>();
         serverPortas.put("serverAle", 1099);
         serverPortas.put("serverMi", 53903);
@@ -37,14 +61,13 @@ public class PartClient{
         serverPortas.put("serverYumi", 53906);
          
         try {
-            Registry registry = LocateRegistry.getRegistry(host);
             // PartRepository repositorioCorrente = (PartRepository) registry.lookup(partRepositoryNameDefault);
             // System.out.println("repositorio do ale: " + repositorioCorrente.getNome());
 
             Scanner sc = new Scanner(System.in);
 
             while (true) {
-                System.out.println("Digite um comando do sistema:");
+                System.out.println("Digite um comando do sistema. ");
                 String comando = sc.nextLine(); 
                 
                 try {

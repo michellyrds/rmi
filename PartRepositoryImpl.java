@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepository {
-    public static int idCount = 0;
+    private static int idCount = 0; //auto-incremento dos ID das peças do repositório
     public String nome;
-    public List<Part> parts = new ArrayList<Part>();
+    private List<Part> parts;
 
 
     public PartRepositoryImpl(String nome) throws RemoteException{
         this.nome = nome;
+        this.parts = new ArrayList<Part>();
+    }
+
+    private int genId(){ //Gera o ID das peças
+        return ++idCount;
     }
 
     public String getNome() {
@@ -39,13 +44,13 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
     }
 
     public void addPart(Part part, List<Part> subParts) throws RemoteException{
-        PartImpl newPart = new PartImpl(++PartRepositoryImpl.idCount, part.getNome(), part.getDescricao(), subParts, this.nome);
+        PartImpl newPart = new PartImpl(genId(), part.getNome(), part.getDescricao(), subParts, this.nome);
         //part.addSubParts(subParts);
         this.parts.add(newPart);
     }
     
     public int createPart(String nome, String descricao, List<Part> subParts) throws RemoteException {
-        PartImpl newPart = new PartImpl(++PartRepositoryImpl.idCount, nome, descricao, subParts, this.nome);
+        PartImpl newPart = new PartImpl(genId(), nome, descricao, subParts, this.nome);
         parts.add(newPart);
         return newPart.getId();
     }
