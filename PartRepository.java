@@ -8,5 +8,5 @@ public interface PartRepository extends Remote {
     public void listar() throws RemoteException;
     public Part getPart(int id) throws RemoteException;
     public void addPart(Part part, List<Part> subParts) throws RemoteException;
-    public void createPart(String nome, String descricao, List<Part> subParts) throws RemoteException;
+    public int createPart(String nome, String descricao, List<Part> subParts) throws RemoteException;
 }

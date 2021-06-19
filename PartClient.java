@@ -12,7 +12,7 @@ public class PartClient{
     public static final String host = "localhost";
 
     private Part part;
-    private List<Part> subParts;
+    private List<Part> subParts = new ArrayList<Part>();
     static PartRepository repositorioCorrente;
 
     public String searchServer(String repositoryName){
@@ -71,8 +71,9 @@ public class PartClient{
                         String nome = sc.nextLine();
                         System.out.println("Digite a descrição da peça que deseja criar:"); 
                         String descricao = sc.nextLine();
-                        repositorioCorrente.createPart(nome, descricao, null);
-                        
+                        List<Part> subPartsNulas = new ArrayList<Part>();
+                        int idCurrentPart = repositorioCorrente.createPart(nome, descricao, subPartsNulas);
+                        part = repositorioCorrente.getPart(idCurrentPart);
                     } 
                     
                     else if (comando.equals("getp")) {

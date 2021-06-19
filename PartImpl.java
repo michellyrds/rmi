@@ -22,7 +22,7 @@ public class PartImpl extends UnicastRemoteObject implements Part {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        subParts = new ArrayList<Part>();
+        this.subParts = new ArrayList<Part>();
         this.partRepositoryName = partRepositoryName;
     }
     
