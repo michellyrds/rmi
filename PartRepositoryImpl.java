@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepository {
+    public static int idCount = 0;
     public String nome;
     public List<Part> parts = new ArrayList<Part>();
 
@@ -37,13 +38,13 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
     }
 
     public void addPart(Part part, List<Part> subParts) throws RemoteException{
-        part.addSubParts(subParts);
-        parts.add(part);
+        // part.addSubParts(subParts);
+        // parts.add(part);
     }
     
-    @Override
-    public PartImpl createPart(int id, String nome, String descricao, List<Part> subParts, String partRepository) throws RemoteException {
-        PartImpl newPart = new PartImpl(id, nome, descricao, subParts, partRepository);
-        return newPart;
+    public void createPart(String nome, String descricao, List<Part> subParts) throws RemoteException {
+        PartImpl newPart = new PartImpl(++PartRepositoryImpl.idCount, nome, descricao, subParts, this.nome);
+        parts.add(newPart);
+     
     }
 }

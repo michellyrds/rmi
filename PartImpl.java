@@ -1,5 +1,6 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PartImpl extends UnicastRemoteObject implements Part {
@@ -7,14 +8,22 @@ public class PartImpl extends UnicastRemoteObject implements Part {
     public String nome;
     public String descricao;
     public List<Part> subParts;
-    public String partRepository;
+    public String partRepositoryName;
     
-    public PartImpl(int id, String nome, String descricao, List<Part> subParts, String partRepository) throws RemoteException{
+    public PartImpl(int id, String nome, String descricao, List<Part> subParts, String partRepositoryName) throws RemoteException{
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.subParts = subParts;
-        this.partRepository = partRepository;
+        this.partRepositoryName = partRepositoryName;
+    }
+
+    public PartImpl(int id, String nome, String descricao, String partRepositoryName) throws RemoteException{
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        subParts = new ArrayList<Part>();
+        this.partRepositoryName = partRepositoryName;
     }
     
     public String getNome(){
@@ -29,8 +38,8 @@ public class PartImpl extends UnicastRemoteObject implements Part {
         return descricao;
     }
 
-    public String getPartRepository(){
-        return partRepository;
+    public String getPartRepositoryName(){
+        return partRepositoryName;
     }
 
     public boolean ehPrimitiva(){
@@ -42,7 +51,7 @@ public class PartImpl extends UnicastRemoteObject implements Part {
 
     public void listar(){
         if(ehPrimitiva()){
-            System.out.println("Vazio!! :P :D :(");
+            System.out.println("Vazio.");
             return;
         }  
 
@@ -55,11 +64,7 @@ public class PartImpl extends UnicastRemoteObject implements Part {
         subParts.clear();
     }
 
-    public void addSubParts(List<Part> subParts){
-        this.subParts = subParts;
-    }
-
-    public String sayHello() {
-        return "HelloWorld!";
+    public void addSubParts(Part subParts){
+        this.subParts.add(subParts);
     }
 }

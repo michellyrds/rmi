@@ -1,6 +1,6 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-//import java.rmi.RemoteException;
+import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,23 +11,34 @@ import java.util.List;
 public class PartClient{
     public static final String host = "localhost";
 
-    static Part part;
-    static PartRepository obj;
-    static List<Part> subParts = new ArrayList<Part>();
+    private Part part;
+    static PartRepository repositorioCorrente;
+
+    public String searchServer(String repositoryName){
+        if (repositoryName.equals("repoAle")){
+            return "serverAle";
+        } else if (repositoryName.equals("repoMi")){
+            return "serverMi";
+        } else if (repositoryName.equals("repoSena")){
+            return "serverSena";
+        } else if (repositoryName.equals("repoYumi")){
+            return "serverYumi";
+        } else {
+            return "Este servidor não existe";
+        }
+    }
 
     public void run(){
         Map<String, Integer> serverPortas = new HashMap<String, Integer>();
-        serverPortas.put("server do ale", 1099);
-        serverPortas.put("server da mi", 53903);
-        serverPortas.put("server do gui", 53907);
-        serverPortas.put("server da yumi", 53906);
-        
+        serverPortas.put("serverAle", 1099);
+        serverPortas.put("serverMi", 53903);
+        serverPortas.put("serverSena", 53907);
+        serverPortas.put("serverYumi", 53906);
+         
         try {
-            //Part obj = (Part)Naming.lookup("rmi://localhost/PartServer"); //nomedamaquina que fica no etc/hosts (ubuntu)
-            //System.out.println(hv.verify(obj, )); //erro: precisamos configurar a ssl session
             Registry registry = LocateRegistry.getRegistry(host);
-            PartRepository obj = (PartRepository) registry.lookup("server do ale");
-            System.out.println("repositorio do ale: " + obj.getNome());
+            // PartRepository repositorioCorrente = (PartRepository) registry.lookup(partRepositoryNameDefault);
+            // System.out.println("repositorio do ale: " + repositorioCorrente.getNome());
 
             Scanner sc = new Scanner(System.in);
 
@@ -41,30 +52,31 @@ public class PartClient{
                     }
                     
                     else if (comando.equals("bind")) {
-                        System.out.println("Digite o nome do servidor que deseja conectar:");
+                        System.out.println("Digite o nome do repositório que deseja conectar:");
                         String nome = sc.nextLine();
-                        int porta = serverPortas.get(nome);
+                        String serverName = searchServer(nome);
+                        int porta = serverPortas.get(serverName);
                         registry = LocateRegistry.getRegistry(porta);
-                        obj = (PartRepository) registry.lookup(nome);
-                        System.out.println(obj.getNome() + " conectado");
+                        repositorioCorrente = (PartRepository) registry.lookup(serverName);
+                        System.out.println("Conectado ao " + repositorioCorrente.getNome() + " no servidor " + serverName);
                     }
 
                     else if (comando.equals("listp")) {
-                        obj.listar();
+                        repositorioCorrente.listar();
                     } 
 
                     else if (comando.equals("createp")) {
-                        System.out.println("Digite o id da peça que deseja criar:");
+                        System.out.println("Digite o nome da peça que deseja criar:"); 
                         String nome = sc.nextLine();
                         System.out.println("Digite a descrição da peça que deseja criar:"); 
                         String descricao = sc.nextLine();
-                        //part = obj.createPart(nome, descricao);
+                        
                     } 
                     
                     else if (comando.equals("getp")) {
                         System.out.println("Digite o id da peça que deseja buscar:");
                         int id = sc.nextInt();
-                        part = obj.getPart(id);
+                        part = repositorioCorrente.getPart(id);
                         System.out.println("Voce agora esta com a part " + part.getNome());
                     } 
 
@@ -72,7 +84,7 @@ public class PartClient{
                         System.out.println("Voce agora esta com a part " + part.getNome());    
                         System.out.println("ID:" + part.getId());
                         System.out.println("Descricao: " + part.getDescricao());
-                        System.out.println("Repositório: " + part.getPartRepository());
+                        System.out.println("Repositório: " + part.getPartRepositoryName());
                         System.out.println("Eh primitiva: " + part.ehPrimitiva());
                         System.out.println("Tamanho: " + part.tamanho());
                     } 
@@ -87,7 +99,7 @@ public class PartClient{
                     }
                 
                     else if (comando.equals("addp")) { 
-                        obj.addPart(part, subParts);
+                        repositorioCorrente.addPart(part, subParts);
                     }
                     
                     else if (comando.equals("help")) {

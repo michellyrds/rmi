@@ -3,6 +3,10 @@ import java.rmi.registry.Registry;
 
 public class PartServer {
     public PartRepository partRepository;
+    public String serverName;
+    public String partRepositoryName;
+    private int port;
+
     public static final String host = "localhost";
 
     public PartServer(String serverName, String partRepositoryName, int port){
@@ -11,10 +15,13 @@ public class PartServer {
             Registry registry;
             registry = LocateRegistry.createRegistry(port);
             registry.rebind(serverName, partRepository);
-            System.out.println(partRepositoryName + " Server pronto.");
+            System.out.println(serverName + " Server pronto.");
         } catch (Exception e){
-            System.out.println("PartServer erro "+ e.getMessage());
+            System.out.println(serverName + " erro "+ e.getMessage());
             System.exit(0);
         }
+        this.partRepositoryName = partRepositoryName;
+        this.serverName = serverName;
+        this.port = port;
     }
 }
