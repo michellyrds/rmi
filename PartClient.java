@@ -92,8 +92,14 @@ public class PartClient{
                         System.out.println("Tamanho: " + part.tamanho());
                     } 
                     
+                    else if (comando.equals("showsubps")) {
+                        for(int i = 0; i<subParts.size(); i++){
+                            System.out.println(subParts.get(i).getNome());
+                        }
+                    }
+
                     else if (comando.equals("clearlist")) { 
-                        part.esvaziarSubParts();    
+                        subParts = new ArrayList<Part>(); 
                         System.out.println("Lista de sub-peças corrente esvaziada");
                     }
                     
@@ -124,11 +130,11 @@ public class PartClient{
                         System.out.println("addsubpart - Adiciona à lista de sub-peças corrente n unidades da peça corrente.");
                         System.out.println("addp - Adiciona uma peça ao repositório corrente.");
                         System.out.println("quit - Encerra a execução do cliente.");
-                        System.out.println("\nLista de servidores:");
-                        System.out.println("Server do ale");
-                        System.out.println("Server da mi");
-                        System.out.println("Server do gui");
-                        System.out.println("Server da yumi");
+                        System.out.println("\nLista de repositorios:");
+                        System.out.println("repoAle");
+                        System.out.println("repoMi");
+                        System.out.println("repoSena");
+                        System.out.println("repoYumi");
                     }
 
                     else if (comando.equals("quit")) {

@@ -23,7 +23,8 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
 
     public void listar() throws RemoteException{
         for(int i = 0; i < parts.size(); i++){
-            System.out.println(parts.get(i).getNome());
+            System.out.print(parts.get(i).getNome()+" ");
+            System.out.println(parts.get(i).getId());
         }
     }  
 
@@ -38,8 +39,9 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
     }
 
     public void addPart(Part part, List<Part> subParts) throws RemoteException{
-        part.addSubParts(subParts);
-        this.parts.add(part);
+        PartImpl newPart = new PartImpl(++PartRepositoryImpl.idCount, part.getNome(), part.getDescricao(), subParts, this.nome);
+        //part.addSubParts(subParts);
+        this.parts.add(newPart);
     }
     
     public int createPart(String nome, String descricao, List<Part> subParts) throws RemoteException {
