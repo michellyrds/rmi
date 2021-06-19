@@ -64,7 +64,7 @@ public class PartImpl extends UnicastRemoteObject implements Part {
         subParts.clear();
     }
 
-    public void addSubParts(Part subParts){
-        this.subParts.add(subParts);
+    public void addSubParts(List<Part> subParts){
+        this.subParts = subParts;
     }
 }

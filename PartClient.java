@@ -12,6 +12,7 @@ public class PartClient{
     public static final String host = "localhost";
 
     private Part part;
+    private List<Part> subParts;
     static PartRepository repositorioCorrente;
 
     public String searchServer(String repositoryName){
@@ -70,6 +71,7 @@ public class PartClient{
                         String nome = sc.nextLine();
                         System.out.println("Digite a descrição da peça que deseja criar:"); 
                         String descricao = sc.nextLine();
+                        repositorioCorrente.createPart(nome, descricao, null);
                         
                     } 
                     
@@ -95,7 +97,15 @@ public class PartClient{
                     }
                     
                     else if (comando.equals("addsubpart")) {
-                        subParts.add(part);
+                        if(part == null){
+                            System.out.println("Nenhuma peça corrente selecionada.");
+                        }else{
+                            System.out.println("Digite o número de unidades da peça corrente a ser inserida:");
+                            int n = sc.nextInt();
+                            for(int i = 0; i < n; i++){
+                                subParts.add(part);
+                            }
+                        }
                     }
                 
                     else if (comando.equals("addp")) { 
@@ -109,6 +119,7 @@ public class PartClient{
                         System.out.println("getp - Busca uma peça por código.");
                         System.out.println("showp - Mostra atributos da peça corrente");
                         System.out.println("clearlist - Esvazia a lista de sub-peças corrente.");
+                        System.out.println("createp - Cria uma peça e adiciona ao repositório corrente");
                         System.out.println("addsubpart - Adiciona à lista de sub-peças corrente n unidades da peça corrente.");
                         System.out.println("addp - Adiciona uma peça ao repositório corrente.");
                         System.out.println("quit - Encerra a execução do cliente.");

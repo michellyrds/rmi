@@ -10,5 +10,5 @@ public interface Part extends Remote {
     int tamanho() throws RemoteException;
     void listar() throws RemoteException;
     void esvaziarSubParts() throws RemoteException;
-    void addSubParts(Part subParts) throws RemoteException;
+    void addSubParts(List<Part> subParts) throws RemoteException;
 }

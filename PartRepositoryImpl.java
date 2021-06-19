@@ -38,8 +38,8 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
     }
 
     public void addPart(Part part, List<Part> subParts) throws RemoteException{
-        // part.addSubParts(subParts);
-        // parts.add(part);
+        part.addSubParts(subParts);
+        this.parts.add(part);
     }
     
     public void createPart(String nome, String descricao, List<Part> subParts) throws RemoteException {
