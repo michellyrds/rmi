@@ -271,7 +271,7 @@ public class PartClient{
                         break;
                         
                     default: 
-                    System.out.println("Comando inválido. Digite \"help\" para obter ajuda.");
+                        System.out.println("Comando inválido. Digite \"help\" para obter ajuda.");
                     
                 }
             }
