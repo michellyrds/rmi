@@ -92,7 +92,7 @@ public class PartClient{
         try {
             int idCurrentPart = repositorioCorrente.createPart(nome, descricao, newSubParts);
             currentPart = repositorioCorrente.getPart(idCurrentPart);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao criar uma nova peça.");
         }
 
@@ -101,7 +101,7 @@ public class PartClient{
     public void getp(int id){
         try {
             currentPart = repositorioCorrente.getPart(id);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao buscar a peça "+ id);
         }
     }
@@ -115,7 +115,7 @@ public class PartClient{
             System.out.println("Repositório: " + currentPart.getPartRepositoryName());
             System.out.println("É primitiva: " + currentPart.ehPrimitiva());
             System.out.println("Tamanho: " + currentPart.tamanho());
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao exibir os atributos da peça corrente.");
         }
     }
@@ -129,7 +129,7 @@ public class PartClient{
                         try{
                             System.out.println(entry.getKey().getNome() + " " + entry.getValue());
                         }
-                        catch(RemoteException e){}
+                        catch(Exception e){}
                     });
                 }
             }
@@ -169,7 +169,7 @@ public class PartClient{
                 });
             }
             repositorioCorrente.addPart(currentPart, newSubParts);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             System.out.println("Erro ao inserir a peça corrente ao repositório.");
         }
     }
@@ -208,7 +208,7 @@ public class PartClient{
             Scanner sc = new Scanner(System.in);
 
             while (true) {
-                System.out.println("Digite um comando do sistema.");
+                System.out.println("\nDigite um comando do sistema.");
                 String comando = sc.nextLine(); 
 
                 if(comando.isEmpty()){
