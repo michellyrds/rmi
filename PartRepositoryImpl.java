@@ -27,9 +27,13 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
     }
 
     public void listar() throws RemoteException{
-        for(int i = 0; i < parts.size(); i++){
-            System.out.print(parts.get(i).getNome()+" ");
-            System.out.println(parts.get(i).getId());
+        if(parts.size() == 0){
+            System.out.println("Repositório vazio");
+        } else {
+            for(int i = 0; i < parts.size(); i++){
+                System.out.print(parts.get(i).getNome()+" ");
+                System.out.println(parts.get(i).getId());
+            }
         }
     }  
 
