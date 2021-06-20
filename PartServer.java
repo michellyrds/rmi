@@ -3,8 +3,8 @@ import java.rmi.registry.Registry;
 
 public class PartServer {
     public PartRepository partRepository;
-    public String serverName;
-    public String partRepositoryName;
+    private String serverName;
+    private String partRepositoryName;
     private int port;
 
     public static final String host = "localhost";
@@ -17,11 +17,24 @@ public class PartServer {
             registry.rebind(serverName, partRepository);
             System.out.println(serverName + " Server pronto.");
         } catch (Exception e){
-            System.out.println(serverName + " erro "+ e.getMessage());
+            System.err.println(serverName + " erro "+ e.getMessage());
             System.exit(0);
         }
+
         this.partRepositoryName = partRepositoryName;
         this.serverName = serverName;
         this.port = port;
+    }
+
+    public String getServerName(){
+        return this.serverName;
+    }
+
+    public String getPartRepositoryName(){
+        return this.partRepositoryName;
+    }
+
+    public int getPort(){
+        return this.port;
     }
 }

@@ -1,5 +1,7 @@
 JFLAGS = -g
 JC = javac
+J = java
+
 .SUFFIXES: .java .class
 .java.class:
 		$(JC) $(JFLAGS) $*.java
@@ -34,3 +36,12 @@ classes: $(CLASSES:.java=.class)
 
 clean:
 	$(RM) *.class
+
+server:
+	$(J) PartServer
+
+start-server:
+	$(J) Main
+
+start-client:
+	$(J) PartClient
