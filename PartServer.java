@@ -3,8 +3,8 @@ import java.rmi.registry.Registry;
 
 public class PartServer {
     public PartRepository partRepository;
-    public String serverName;
-    public String partRepositoryName;
+    private String serverName;
+    private String partRepositoryName;
     private int port;
 
     public static final String host = "localhost";

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepository {
     private static int idCount = 0; //auto-incremento dos ID das peças do repositório
-    public String nome;
+    private String nome;
     private List<Part> parts;
 
 

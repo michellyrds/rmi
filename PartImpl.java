@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PartImpl extends UnicastRemoteObject implements Part {
-    public int id;
-    public String nome;
-    public String descricao;
-    public List<Part> subParts;
-    public String partRepositoryName;
+    private int id;
+    private String nome;
+    private String descricao;
+    private List<Part> subParts;
+    private String partRepositoryName;
     
     public PartImpl(int id, String nome, String descricao, List<Part> subParts, String partRepositoryName) throws RemoteException{
         this.id = id;
