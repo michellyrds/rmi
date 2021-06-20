@@ -1,5 +1,6 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.text.BreakIterator;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
@@ -7,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class PartClient{
     private String host = "localhost"; //host default
 
     private Part currentPart = null;
-    private List<Part> subParts = new ArrayList<Part>();
+    private List<Map<Part,Integer>> subParts = new ArrayList<Map<Part,Integer>>();
     static PartRepository repositorioCorrente;
     private Map<String, Integer> servers; //Map<serverName, port>
     Registry registry;
@@ -41,17 +43,23 @@ public class PartClient{
         servers.put("serverYumi", 53906);
     }
 
-    public String searchServer(String repositoryName){
-        // TODO: Varrer todos os repositórios (alterar a conexao do cliente-servidor até achar o nome do servidor que contem o repositório)
-        // pegar o nome do servidor que contém o repositoryName, salvar e reestabelecer a comunicação cliente-servidor
-        // Iterator<Entry<String, Integer>> iterator = servers.entrySet().iterator();
-
-        // while(iterator.hasNext()){
-        //     Map.Entry<String, Integer> currentServer = (Map.Entry<String, Integer>) iterator.next();
-        //     repositoryName
-        // }
-
-        return "";
+    public String searchServer(String repositoryName) throws RemoteException, NotBoundException{
+        
+        servers.entrySet().forEach(entry -> {
+            try{
+                int port = entry.getValue();
+                registry = LocateRegistry.getRegistry(port);
+                PartRepository repositorioTeste = (PartRepository) registry.lookup(entry.getKey());
+                if(repositoryName.equals(repositorioTeste.getNome())){
+                    repositorioCorrente = repositorioTeste;
+                    System.out.println("Conectado ao " + repositorioCorrente.getNome() + " no servidor " + entry.getKey());
+                }
+            }
+            catch(Exception e){
+                System.out.println("Conexão ao repositório "+ repositoryName + " falhou.");
+            }
+        });
+        return repositorioCorrente.getNome();
         
     }
     
@@ -62,11 +70,6 @@ public class PartClient{
                 System.out.println("Repositório não encontrado.");
                 return;
             }
-
-            int port = servers.get(serverName);
-            registry = LocateRegistry.getRegistry(port);
-            repositorioCorrente = (PartRepository) registry.lookup(serverName);
-            System.out.println("Conectado ao " + repositorioCorrente.getNome() + " no servidor " + serverName);
         } catch(Exception e){
             System.out.println("Conexão ao repositório "+ repositoryName + " falhou.");
         }
@@ -118,17 +121,21 @@ public class PartClient{
     }
 
     public void showsubps(){
-        try{
             if(subParts.isEmpty()){
                 System.out.println("Nenhuma sub-peças corrente a ser exibida.");
             }else{
                 for(int i = 0; i<subParts.size(); i++){
-                    System.out.println(subParts.get(i).getNome());
+                    subParts.get(i).entrySet().forEach(entry -> {
+                        try{
+                            System.out.println(entry.getKey().getNome() + " " + entry.getValue());
+                        }
+                        catch(RemoteException e){}
+                    });
                 }
             }
-        } catch(RemoteException e){
+        /*} catch(RemoteException e){
             System.out.println("Erro ao exibir as sub-peças correntes.");
-        }
+        }*/
 
     }
 
@@ -143,8 +150,9 @@ public class PartClient{
                 System.out.println("Nenhuma peça corrente selecionada.");
                 
             }else{
-                //Map<Part, Integer> newSubParts
-                //subParts.add(newSubParts)
+                Map<Part, Integer> newSubParts = new HashMap<Part, Integer>();
+                newSubParts.put(currentPart, n);
+                subParts.add(newSubParts);
             }
         }catch(Exception e){
             System.out.println("Erro ao inserir a sub-peças à lista.");
@@ -154,7 +162,13 @@ public class PartClient{
 
     public void addp(){
         try {
-            repositorioCorrente.addPart(currentPart, subParts);
+            List<Part> newSubParts= new ArrayList<Part>();
+            for(int i = 0; i<subParts.size(); i++){
+                subParts.get(i).entrySet().forEach(entry -> {
+                    newSubParts.add(entry.getKey());
+                });
+            }
+            repositorioCorrente.addPart(currentPart, newSubParts);
         } catch (RemoteException e) {
             System.out.println("Erro ao inserir a peça corrente ao repositório.");
         }
