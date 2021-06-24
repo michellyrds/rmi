@@ -13,13 +13,14 @@ Para compilar os arquivos *.java:
 ```
 make default
 ```
-Para criar novos servidores, instancie novos objetos do tipo PartServer no Main.java. O mesmo vale para os clientes.
+Para criar novos servidores de forma simplificada, instancie novos objetos do tipo PartServer no Main.java. O mesmo vale para os clientes.
+Para criar novos servidores além do especificados pelo Main.java, deve-se adicionar o nome do server e a porta no qual está sendo executado o server no método createServerList() do PartClient.java
 
 Para executar o EP (criando os servidores e objetos do tipo PartClient):
 ```
 make start-server
 ```
-Para criar um servidor:
+Para criar um servidor (se não especificar o hostname na instância, será utilizado o 'localhost' como default):
 ```
 make server
 ```
