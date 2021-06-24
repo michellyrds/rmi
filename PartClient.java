@@ -29,7 +29,7 @@ public class PartClient {
     }
 
     private void createServerList() { // preenche a lista dos servidores disponíveis (hardcoded)
-        servers = new HashMap<String, Integer>();
+        this.servers = new HashMap<String, Integer>();
 
         servers.put("serverAle", 1099);
         servers.put("serverMi", 53903);
@@ -46,17 +46,13 @@ public class PartClient {
                 PartRepository repositorioTeste = (PartRepository) registry.lookup(entry.getKey());
                 if (repositoryName.equals(repositorioTeste.getNome())) {
                     repositorioCorrente = repositorioTeste;
-                    System.out.println(
-                            "Conectado ao " + repositorioCorrente.getNome() + " no servidor " + entry.getKey());
                 }
             } catch (Exception e) {
-                System.out.println("Conexão ao repositório " + repositoryName + " falhou.");
             }
         });
         return repositorioCorrente.getNome();
-
     }
-
+    
     public void bind(String repositoryName) throws RemoteException, NotBoundException {
         try {
             String serverName = searchServer(repositoryName);
@@ -64,8 +60,9 @@ public class PartClient {
                 System.out.println("Repositório não encontrado.");
                 return;
             }
+            System.out.println("Conectado ao " + repositorioCorrente.getNome() + " no servidor " + serverName);
         } catch (Exception e) {
-            System.out.println("Conexão ao repositório " + repositoryName + " falhou.");
+            System.out.println("Não foi possível conectar ao repositório " + repositoryName + ".");
         }
     }
 
@@ -100,8 +97,8 @@ public class PartClient {
     public void showp() {
         try {
             System.out.println("Peça corrente: ");
-            System.out.println("Nome" + currentPart.getNome());
-            System.out.println("ID:" + currentPart.getId());
+            System.out.println("Nome: " + currentPart.getNome());
+            System.out.println("ID: " + currentPart.getId());
             System.out.println("Descricao: " + currentPart.getDescricao());
             System.out.println("Repositório: " + currentPart.getPartRepositoryName());
             System.out.println("É primitiva: " + currentPart.ehPrimitiva());
@@ -125,7 +122,6 @@ public class PartClient {
                 });
             }
         }
-
     }
 
     public void clearlist() {
@@ -137,12 +133,10 @@ public class PartClient {
         try {
             if (currentPart == null) {
                 System.out.println("Nenhuma peça corrente selecionada.");
-
             } else {
                 Map<Part, Integer> newSubParts = new HashMap<Part, Integer>();
                 newSubParts.put(currentPart, n);
                 subParts.add(newSubParts);
-                System.out.println("Adicionada à lista de peças de sub-peças corrente");
             }
         } catch (Exception e) {
             System.out.println("Erro ao inserir a sub-peças à lista.");
@@ -170,9 +164,10 @@ public class PartClient {
         System.out.println("bind - Faz o cliente se conectar a outro servidor e muda o repositório corrente.");
         System.out.println("listp - Lista as peças do repositório corrente.");
         System.out.println("getp - Busca uma peça por código.");
-        System.out.println("showp - Mostra atributos da peça corrente");
+        System.out.println("showp - Mostra atributos da peça corrente.");
+        System.out.println("showsubps - Mostra a lista de sub-peças corrente da peça corrente.");
         System.out.println("clearlist - Esvazia a lista de sub-peças corrente.");
-        System.out.println("createp - Cria uma peça e adiciona ao repositório corrente");
+        System.out.println("createp - Cria uma peça e adiciona ao repositório corrente.");
         System.out.println("addsubpart - Adiciona à lista de sub-peças corrente n unidades da peça corrente.");
         System.out.println("addp - Adiciona uma peça ao repositório corrente.");
         System.out.println("quit - Encerra a execução do cliente.");
@@ -189,11 +184,6 @@ public class PartClient {
     }
 
     public void run() throws RemoteException {
-        Map<String, Integer> serverPortas = new HashMap<String, Integer>();
-        serverPortas.put("serverAle", 1099);
-        serverPortas.put("serverMi", 53903);
-        serverPortas.put("serverSena", 53907);
-        serverPortas.put("serverYumi", 53906);
 
         try {
             Scanner sc = new Scanner(System.in);
@@ -230,6 +220,7 @@ public class PartClient {
                     case "getp":
                         System.out.println("Digite o id da peça que deseja buscar:");
                         int id = sc.nextInt();
+                        sc.nextLine();
                         getp(id);
                         break;
 
@@ -249,6 +240,7 @@ public class PartClient {
                         System.out.println(
                                 "Digite o número de unidades da peça corrente a ser inserida na lista de sub-peças:");
                         int n = sc.nextInt();
+                        sc.nextLine();
                         addsubpart(n);
 
                     case "addp":
@@ -277,7 +269,14 @@ public class PartClient {
     }
 
     public static void main(String args[]) throws RemoteException {
-        PartClient newPartClient = new PartClient();
-        newPartClient.run();
+
+        try{
+            PartClient newPartClient = new PartClient();
+            newPartClient.run();
+        } catch (Exception e) {
+            System.out.println("PartClient error " + e.getMessage());
+            System.exit(0);
+        }
+
     }
 }
