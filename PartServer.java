@@ -1,5 +1,6 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Scanner;
 
 public class PartServer {
     public PartRepository partRepository;
@@ -36,5 +37,19 @@ public class PartServer {
 
     public int getPort(){
         return this.port;
+    }
+
+    public static void main (String args[]){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Digite o nome do servidor:");
+        String serverName = sc.nextLine();
+        System.out.println("Digite o nome do repositório:");
+        String repositoryName = sc.nextLine();
+        System.out.println("Digite a porta do servidor:");
+        int port = sc.nextInt();
+        
+        PartServer newServer = new PartServer(serverName, repositoryName, port);
+
+        System.out.println("Não esqueça de adiconar o nome do servidor e a porta no createServerList do PartClient!");
     }
 }
