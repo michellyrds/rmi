@@ -101,6 +101,7 @@ public class PartClient{
     public void getp(int id){
         try {
             currentPart = repositorioCorrente.getPart(id);
+            System.out.println("Peça encontrada");
         } catch (Exception e) {
             System.out.println("Erro ao buscar a peça "+ id);
         }
@@ -153,6 +154,7 @@ public class PartClient{
                 Map<Part, Integer> newSubParts = new HashMap<Part, Integer>();
                 newSubParts.put(currentPart, n);
                 subParts.add(newSubParts);
+                System.out.println("Adicionada à lista de peças de sub-peças corrente");
             }
         }catch(Exception e){
             System.out.println("Erro ao inserir a sub-peças à lista.");
@@ -169,6 +171,7 @@ public class PartClient{
                 });
             }
             repositorioCorrente.addPart(currentPart, newSubParts);
+            System.out.println("Peça adicionada ao repositório corrente");
         } catch (Exception e) {
             System.out.println("Erro ao inserir a peça corrente ao repositório.");
         }
