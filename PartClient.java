@@ -193,8 +193,7 @@ public class PartClient {
                 String comando = sc.nextLine();
 
                 if (comando.isEmpty()) {
-                    System.out.println(
-                            "Digite um comando do sistema. Para saber os comandos do sistema, digite \"help\"");
+                    System.out.println("Digite um comando do sistema. Para saber os comandos do sistema, digite \"help\"");
                     continue;
                 }
 
@@ -237,8 +236,7 @@ public class PartClient {
                         break;
 
                     case "addsubpart":
-                        System.out.println(
-                                "Digite o número de unidades da peça corrente a ser inserida na lista de sub-peças:");
+                        System.out.println("Digite o número de unidades da peça corrente a ser inserida na lista de sub-peças:");
                         int n = sc.nextInt();
                         sc.nextLine();
                         addsubpart(n);
