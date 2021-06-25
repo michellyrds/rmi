@@ -10,7 +10,6 @@ import java.util.List;
 
 public class PartClient {
     private String host = "localhost"; // host default
-
     private Part currentPart = null;
     private List<Map<Part, Integer>> subParts = new ArrayList<Map<Part, Integer>>();
     static PartRepository repositorioCorrente;
@@ -38,7 +37,6 @@ public class PartClient {
     }
 
     public String searchServer(String repositoryName) throws RemoteException, NotBoundException {
-
         servers.entrySet().forEach(entry -> {
             try {
                 int port = entry.getValue();
@@ -82,7 +80,6 @@ public class PartClient {
         } catch (Exception e) {
             System.out.println("Erro ao criar uma nova peça.");
         }
-
     }
 
     public void getp(int id) {
@@ -255,15 +252,12 @@ public class PartClient {
 
                     default:
                         System.out.println("Comando inválido. Digite \"help\" para obter ajuda.");
-
                 }
             }
-
         } catch (Exception e) {
             System.out.println("PartClient error " + e.getMessage());
             System.exit(0);
         }
-
     }
 
     public static void main(String args[]) throws RemoteException {
@@ -275,6 +269,5 @@ public class PartClient {
             System.out.println("PartClient error " + e.getMessage());
             System.exit(0);
         }
-
     }
 }

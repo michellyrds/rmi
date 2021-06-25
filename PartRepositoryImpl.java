@@ -8,7 +8,6 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
     private String nome;
     private List<Part> parts;
 
-
     public PartRepositoryImpl(String nome) throws RemoteException{
         this.nome = nome;
         this.parts = new ArrayList<Part>();
@@ -49,7 +48,6 @@ public class PartRepositoryImpl extends UnicastRemoteObject implements PartRepos
 
     public void addPart(Part part, List<Part> subParts) throws RemoteException{
         PartImpl newPart = new PartImpl(genId(), part.getNome(), part.getDescricao(), subParts, this.nome);
-        //part.addSubParts(subParts);
         this.parts.add(newPart);
     }
     
