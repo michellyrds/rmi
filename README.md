@@ -2,7 +2,7 @@
 
 Implementação de um sistema de informações distribuído sobre peças ou componentes (parts) usando Remote Method Invocation (RMI) de Java.
 
-Estudo-Programa desenvolvido para a disciplina **ACH2147 - Desenvolvimento de Sistemas de Informação Distribuídos**.
+Exercício-Programa desenvolvido para a disciplina **ACH2147 - Desenvolvimento de Sistemas de Informação Distribuídos**.
 
 ### java version:
     openjdk 14 2020-03-17
